@@ -12,6 +12,8 @@ from torch.utils.data import DataLoader, Dataset
 from transformers.optimization import AdamW, get_cosine_schedule_with_warmup
 from transformers import PreTrainedTokenizerFast, GPT2LMHeadModel
 
+# bert_model_PATH =
+
 parser = argparse.ArgumentParser(description='Simsimi based on KoGPT-2')
 
 parser.add_argument('--chat',
@@ -240,7 +242,7 @@ class KoGPT2Chat(LightningModule):
             shuffle=True, collate_fn=self._collate_fn)
         return train_dataloader
 
-    def chat(self, sent, keywords):
+    def chat(self, sent='0', keywords='0'):
         tok = TOKENIZER
         # sent_tokens = tok.tokenize(sent)
         # keywords_tokens = tok.tokenize(keywords)
