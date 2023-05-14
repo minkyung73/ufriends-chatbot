@@ -230,7 +230,7 @@ parser.add_argument('--keywords',
 
 parser.add_argument('--model_params',
                     type=str,
-                    default='model_chp/model_-last.ckpt',
+                    default='BERGPT/model_-last.ckpt',
                     help='model binary for starting chat')
 
 parser.add_argument('--train',
@@ -469,7 +469,7 @@ logging.info(args)
 if __name__ == "__main__":
     if args.train:
         checkpoint_callback = ModelCheckpoint(
-            dirpath='model_chp',
+            dirpath='BERGPT',
             filename='{epoch:02d}-{train_loss:.2f}',
             verbose=True,
             save_last=True,
