@@ -118,7 +118,7 @@ def k_predict(sentence):
     return answer
 
 
-kPATH = './Model/keywords-train-SentimentAnalysisKOBert_StateDict.pt'
+kPATH = '../Model/keywords-train-SentimentAnalysisKOBert_StateDict.pt'
 k_model = kBERTClassifier(bertmodel, dr_rate=0.5).to(device)
 k_model.load_state_dict(torch.load(kPATH))
 k_model.eval()
@@ -196,7 +196,7 @@ def e_predict(sentence):
     return answer
 
 
-ePATH = './Model/emotions-train-SentimentAnalysisKOBert_StateDict.pt'
+ePATH = '../Model/emotions-train-SentimentAnalysisKOBert_StateDict.pt'
 e_model = eBERTClassifier(bertmodel, dr_rate=0.5).to(device)
 e_model.load_state_dict(torch.load(ePATH))
 e_model.eval()
@@ -230,7 +230,7 @@ parser.add_argument('--keywords',
 
 parser.add_argument('--model_params',
                     type=str,
-                    default='BERGPT/model_-last.ckpt',
+                    default='model_chp/model_-last.ckpt',
                     help='model binary for starting chat')
 
 parser.add_argument('--train',
@@ -425,7 +425,7 @@ class KoGPT2Chat(LightningModule):
         return torch.LongTensor(data), torch.LongTensor(mask), torch.LongTensor(label)
 
     def train_dataloader(self):
-        data = pd.read_csv('./Dataset/Preprocessing/train_df_preprocess.csv')
+        data = pd.read_csv('../Dataset/Preprocessing/train_df_preprocess.csv')
         self.train_set = CharDataset(data, max_len=self.hparams.max_len)
         train_dataloader = DataLoader(
             self.train_set, batch_size=self.hparams.batch_size, num_workers=2,
@@ -469,7 +469,7 @@ logging.info(args)
 if __name__ == "__main__":
     if args.train:
         checkpoint_callback = ModelCheckpoint(
-            dirpath='BERGPT',
+            dirpath='model_chp',
             filename='{epoch:02d}-{train_loss:.2f}',
             verbose=True,
             save_last=True,
